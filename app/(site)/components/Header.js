@@ -58,7 +58,7 @@ const Header = () => {
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110`}
           >
-            <Link href={"snkrs"}>SNKRS</Link>
+            <Link href={"contact"}>Contact Us</Link>
           </li>
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110 min-[1150px]:hidden`}
@@ -89,10 +89,12 @@ const Header = () => {
               className="mx-7 hover:scale-110 h-7"
             />
           </Link>
-          <FontAwesomeIcon
-            icon={faCartShopping}
-            className="h-6 hover:scale-110 max-[1150px]:mx-7"
-          />
+          <Link href={`cart`}>
+            <FontAwesomeIcon
+              icon={faCartShopping}
+              className="h-6 hover:scale-110 max-[1150px]:mx-7 pt-1"
+            />
+          </Link>
         </div>
         {nav ? (
           <FontAwesomeIcon

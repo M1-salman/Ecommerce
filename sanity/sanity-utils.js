@@ -5,6 +5,7 @@ export async function getItems() {
     projectId: "m7uvgv1i",
     dataset: "production",
     apiVersion: "2023-06-10",
+    useCdn: false,
   });
 
   return client.fetch(
@@ -25,6 +26,7 @@ export async function getItem(slug) {
     projectId: "m7uvgv1i",
     dataset: "production",
     apiVersion: "2023-06-10",
+    useCdn: false,
   });
 
   return client.fetch(
