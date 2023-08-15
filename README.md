@@ -20,6 +20,8 @@ And the data is coming to my e-commerce website dynamically. I built this websit
 - Product details page (Dynamic routes)
 - Product is rendered Dynamically
 - Used Grid to structure
+- Add To Cart with Redux
+- Contact form with MongoDB database
 - Sanity CMS
 - TailwindCSS
 - Next.js
