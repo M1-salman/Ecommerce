@@ -15,16 +15,14 @@ And the data is coming to my e-commerce website dynamically. I built this websit
 
 ## Features
 
-- Easy to Maintain
-- Responsive
-- Product details page (Dynamic routes)
-- Product is rendered Dynamically
-- Used Grid to structure
-- Add To Cart with Redux
+- Next.js for SSR
+- All products are managed on Sanity CMS
+- A products details pages using Dynamic route
+- Add To Cart function with Redux
+- Added Authentication with Credential using MongoDB and Google OAuth 2.0
+- Responsive design
 - Contact form with MongoDB database
-- Sanity CMS
-- TailwindCSS
-- Next.js
+- User friendly interface using TailwindCSS
 
 
 
