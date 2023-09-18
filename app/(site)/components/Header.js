@@ -21,6 +21,12 @@ const Header = () => {
     setNav(!nav);
   };
 
+  const hideNav = () => {
+    if (nav === true) {
+      setNav(!nav);
+    }
+  };
+
   return (
     <header className=" flex items-center justify-between mt-3 max-w-full">
       <span className="ml-12 max-[415px]:ml-4">
@@ -43,31 +49,31 @@ const Header = () => {
         <ul className="flex pl-52 max-[1150px]:pl-0 max-[1150px]:flex-col max-[1150px]:items-center max-[1150px]:mt-5">
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110`}
-            onClick={showNav}
+            onClick={hideNav}
           >
             <Link href={"/"}>New arrivals</Link>
           </li>
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110`}
-            onClick={showNav}
+            onClick={hideNav}
           >
             <Link href={"men"}>Men</Link>
           </li>
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110`}
-            onClick={showNav}
+            onClick={hideNav}
           >
             <Link href={"women"}>Women</Link>
           </li>
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110`}
-            onClick={showNav}
+            onClick={hideNav}
           >
             <Link href={"contact"}>Contact us</Link>
           </li>
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110 min-[1150px]:hidden`}
-            onClick={showNav}
+            onClick={hideNav}
           >
             <Link href={`yourprofile`}>Your Profile</Link>
           </li>
