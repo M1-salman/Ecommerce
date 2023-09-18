@@ -15,7 +15,7 @@ export default async function Item({ params }) {
   };
 
   return (
-    <section className="w-4/5 m-auto py-20 flex max-[1000px]:flex-col max-[1000px]:items-center max-[1000px]:w-full">
+    <section className="w-4/5 m-auto py-20 flex max-[1000px]:flex-col max-[1000px]:items-center max-[1000px]:w-full h-screen max-[500px]:h-[140vh]">
       <div className="w-2/4 max-[500px]:w-3/4">
         <Image
           src={item.image}

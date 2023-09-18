@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const EmptyCart = () => {
   return (
-    <section className="flex flex-col items-center mt-24 mb-44">
+    <section className="flex flex-col items-center mt-32 ">
       <div className="text-gray-900 font-medium text-3xl">Cart</div>
       <div className="mt-4 text-gray-900">
         There are not items in your cart.

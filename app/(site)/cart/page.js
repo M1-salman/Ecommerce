@@ -33,7 +33,7 @@ const Cart = () => {
     dispatch(addToCart(cartItem));
   };
   return (
-    <main>
+    <main className="h-screen max-[500px]:h-[120vh]">
       {cart.cartItems.length === 0 ? (
         <EmptyCart />
       ) : (

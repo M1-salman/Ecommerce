@@ -6,6 +6,7 @@ import {
   faCartShopping,
   faBars,
   faXmark,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,35 +36,40 @@ const Header = () => {
       </span>
 
       <nav
-        className={`max-[1150px]:fixed max-[1150px]:top-0 max-[1150px]:bg-white max-[1150px]:w-full max-[1150px]:drop-shadow-md ${
+        className={`max-[1150px]:fixed  max-[1150px]:top-0 max-[1150px]:bg-white max-[1150px]:w-full max-[1150px]:drop-shadow-md ${
           nav ? "right-0" : "right-[-100vw]"
         } transition-all duration-300`}
       >
         <ul className="flex pl-52 max-[1150px]:pl-0 max-[1150px]:flex-col max-[1150px]:items-center max-[1150px]:mt-5">
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110`}
+            onClick={showNav}
           >
-            <Link href={"/"}>New Arrivals</Link>
+            <Link href={"/"}>New arrivals</Link>
           </li>
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110`}
+            onClick={showNav}
           >
             <Link href={"men"}>Men</Link>
           </li>
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110`}
+            onClick={showNav}
           >
             <Link href={"women"}>Women</Link>
           </li>
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110`}
+            onClick={showNav}
           >
-            <Link href={"contact"}>Contact Us</Link>
+            <Link href={"contact"}>Contact us</Link>
           </li>
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110 min-[1150px]:hidden`}
+            onClick={showNav}
           >
-            <Link href={`https://twitter.com/salman_code`}>Twitter</Link>
+            <Link href={`yourprofile`}>Your Profile</Link>
           </li>
         </ul>
       </nav>
@@ -77,16 +83,10 @@ const Header = () => {
           />
         </div>
         <div className="flex items-center">
-          <Link
-            href={`https://twitter.com/salman_code`}
-            className="max-[1150px]:hidden"
-          >
-            <Image
-              src="/images/twitter2.svg"
-              height={29}
-              width={29}
-              alt="Follow us on Instagram"
-              className="mx-7 hover:scale-110 h-7"
+          <Link href={`yourprofile`} className="max-[1150px]:hidden">
+            <FontAwesomeIcon
+              icon={faUser}
+              className="mx-7 h-6 hover:scale-110 pt-1"
             />
           </Link>
           <Link href={`cart`}>
@@ -99,13 +99,13 @@ const Header = () => {
         {nav ? (
           <FontAwesomeIcon
             icon={faXmark}
-            className="min-[1150px]:hidden h-6 absolute right-4 top-7"
+            className="min-[1150px]:hidden h-6 absolute right-4 top-4"
             onClick={showNav}
           />
         ) : (
           <FontAwesomeIcon
             icon={faBars}
-            className="min-[1150px]:hidden h-6 absolute right-4 top-7"
+            className="min-[1150px]:hidden h-6 absolute right-4 top-3.5"
             onClick={showNav}
           />
         )}
