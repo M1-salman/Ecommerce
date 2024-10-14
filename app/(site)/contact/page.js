@@ -9,6 +9,7 @@ const Contact = () => {
   const [emailError, setEmailError] = useState("");
   const [subjectError, setSubjectError] = useState("");
   const [messageError, setMessageError] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -49,111 +50,114 @@ const Contact = () => {
     setEmailError("");
     setSubjectError("");
     setMessageError("");
+    setIsSending(true);
 
-    const res = await fetch("api/contact", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        subject,
-        message,
-      }),
-    });
-    const { msg, errmsg } = await res.json();
+    try {
+      const res = await fetch("api/contact", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          subject,
+          message,
+        }),
+      });
+      const { msg, errmsg } = await res.json();
 
-    if (msg !== undefined) {
-      toast.success(`${msg}`);
-    } else {
-      toast.error(`${errmsg}`);
+      if (msg !== undefined) {
+        toast.success(`${msg}`);
+      } else {
+        toast.error(`${errmsg}`);
+      }
+
+      setEmail("");
+      setSubject("");
+      setMessage("");
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsSending(false);
     }
-
-    setEmail("");
-    setSubject("");
-    setMessage("");
   };
 
   return (
-    <section className="h-screen max-[500px]:h-[130vh] mt-8 lg:mt-16">
-      <div className="px-4 mx-auto max-w-screen-md">
-        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900">
-          Contact Us
+    <section className="min-h-screen py-16 mt-10 bg-gradient-to-b from-gray-50 to-white">
+      <div className="px-4 mx-auto max-w-4xl">
+        <h2 className="mb-6 text-5xl font-bold text-center text-gray-900">
+          Get in Touch
         </h2>
-        <p className="mb-8 lg:mb-16 font-light text-center text-gray-500 sm:text-xl">
-          Got a technical issue? Want to send feedback about the website? Let us
-          know.
+        <p className="mb-12 text-center text-gray-600 text-lg max-w-2xl mx-auto">
+          Have a question or want to collaborate? We'd love to hear from you. Fill out the form below, and we'll get back to you soon.
         </p>
-        <form className="space-y-8" onSubmit={handleSubmit}>
-          <div>
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm mt-0.5 font-medium text-gray-900"
-            >
-              Your email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={handleEmailChange}
-              className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm mt-0.5 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="name@gmail.com"
-            />
-            {emailError && (
-              <p className="text-red-400 font-sans text-sm mt-0.5 pl-0.5">
-                {emailError}
-              </p>
-            )}
+        <form className="space-y-8 bg-white shadow-xl rounded-lg p-8" onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div>
+              <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">
+                Your Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={handleEmailChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                placeholder="you@example.com"
+              />
+              {emailError && (
+                <p className="mt-2 text-sm text-red-600">{emailError}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="subject" className="block mb-2 text-sm font-medium text-gray-700">
+                Subject
+              </label>
+              <input
+                type="text"
+                id="subject"
+                value={subject}
+                onChange={handleSubjectChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+                placeholder="What's this about?"
+              />
+              {subjectError && (
+                <p className="mt-2 text-sm text-red-600">{subjectError}</p>
+              )}
+            </div>
           </div>
           <div>
-            <label
-              htmlFor="subject"
-              className="block mb-2 text-sm mt-0.5 font-medium text-gray-900 dark:text-gray-300"
-            >
-              Subject
-            </label>
-            <input
-              type="text"
-              id="subject"
-              value={subject}
-              onChange={handleSubjectChange}
-              className="block p-3 w-full text-sm mt-0.5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Let us know how we can help you"
-            />
-            {subjectError && (
-              <p className="text-red-400 font-sans text-sm mt-0.5 pl-0.5">
-                {subjectError}
-              </p>
-            )}
-          </div>
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="message"
-              className="block mb-2 text-sm mt-0.5 font-medium text-gray-900"
-            >
-              Your message
+            <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-700">
+              Your Message
             </label>
             <textarea
               id="message"
-              rows="4"
+              rows="6"
               value={message}
               onChange={handleMessageChange}
-              className="block p-2.5 w-full text-sm mt-0.5 text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Leave a comment..."
+              className="w-full px-4 py-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+              placeholder="Tell us what's on your mind..."
             ></textarea>
             {messageError && (
-              <p className="text-red-400 font-sans text-sm mt-0.5 pl-0.5">
-                {messageError}
-              </p>
+              <p className="mt-2 text-sm text-red-600">{messageError}</p>
             )}
           </div>
-          <button
-            type="submit"
-            className="py-3 px-5 text-sm mt-0.5 font-medium text-center text-white rounded-lg bg-blue-700 sm:w-fit hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
-          >
-            Send message
-          </button>
+          <div className="text-right">
+            <button
+              type="submit"
+              disabled={isSending}
+              className="px-6 py-3 text-white bg-gray-900 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSending ? (
+                <>
+                  <span className="inline-block animate-spin mr-2">&#9696;</span>
+                  Sending...
+                </>
+              ) : (
+                "Send Message"
+              )}
+            </button>
+          </div>
         </form>
       </div>
     </section>

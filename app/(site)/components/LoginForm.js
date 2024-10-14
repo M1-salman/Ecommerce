@@ -75,7 +75,7 @@ const LoginForm = () => {
             type={passwordVisible ? "text" : "password"}
             name="password"
             placeholder="Password"
-            autocomplete="off"
+            autoComplete="off"
             className=" py-2 px-3 outline-none w-full placeholder:text-sm text-sm"
             value={formData.password}
             onChange={handleChange}

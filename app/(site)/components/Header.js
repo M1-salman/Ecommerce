@@ -12,10 +12,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Roboto } from "next/font/google";
 const ubuntu = Roboto({ weight: "400", subsets: ["latin"] });
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Header = () => {
   const [nav, setNav] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const showNav = () => {
     setNav(!nav);
@@ -27,8 +28,18 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className=" flex items-center justify-between mt-3 max-w-full">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+    } flex items-center justify-between max-w-full`}>
       <span className="ml-12 max-[415px]:ml-4">
         <Link href={"/"}>
           <Image
@@ -42,11 +53,11 @@ const Header = () => {
       </span>
 
       <nav
-        className={`max-[1150px]:fixed  max-[1150px]:top-0 max-[1150px]:bg-white max-[1150px]:w-full max-[1150px]:drop-shadow-md ${
-          nav ? "right-0" : "right-[-100vw]"
-        } transition-all duration-300`}
+        className={`max-[1150px]:fixed max-[1150px]:top-0 max-[1150px]:bg-white max-[1150px]:w-full max-[1150px]:h-full max-[1150px]:flex max-[1150px]:flex-col max-[1150px]:justify-center ${
+          nav ? "max-[1150px]:right-0" : "max-[1150px]:right-[-100%]"
+        } transition-all duration-300 ease-in-out`}
       >
-        <ul className="flex pl-52 max-[1150px]:pl-0 max-[1150px]:flex-col max-[1150px]:items-center max-[1150px]:mt-5">
+        <ul className="flex pl-52 max-[1150px]:pl-0 max-[1150px]:flex-col max-[1150px]:items-center max-[1150px]:space-y-8">
           <li
             className={`${ubuntu.className} mx-8 max-[1150px]:my-2 text-lg hover:text-slate-500 transition ease-in-out hover:scale-110`}
             onClick={hideNav}
@@ -79,7 +90,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <div className="flex items-center mr-12">
+      <div className="flex items-center mr-6">
         <div className="bg-gray-100 p-2 my-2 rounded-2xl flex items-center max-[1150px]:bg-transparent">
           <FontAwesomeIcon icon={faMagnifyingGlass} className="h-6" />
           <input
@@ -102,19 +113,15 @@ const Header = () => {
             />
           </Link>
         </div>
-        {nav ? (
-          <FontAwesomeIcon
-            icon={faXmark}
-            className="min-[1150px]:hidden h-6 absolute right-4 top-4"
-            onClick={showNav}
-          />
-        ) : (
-          <FontAwesomeIcon
-            icon={faBars}
-            className="min-[1150px]:hidden h-6 absolute right-4 top-3.5"
-            onClick={showNav}
-          />
-        )}
+        <button
+          className="min-[1150px]:hidden z-50 p-2 focus:outline-none"
+          onClick={showNav}
+          aria-label="Toggle menu"
+        >
+          <div className={`w-6 h-0.5 bg-black transition-all duration-300 ${nav ? 'rotate-45 translate-y-1.5' : ''}`}></div>
+          <div className={`w-6 h-0.5 bg-black my-1.5 transition-all duration-300 ${nav ? 'opacity-0' : ''}`}></div>
+          <div className={`w-6 h-0.5 bg-black transition-all duration-300 ${nav ? '-rotate-45 -translate-y-1.5' : ''}`}></div>
+        </button>
       </div>
     </header>
   );

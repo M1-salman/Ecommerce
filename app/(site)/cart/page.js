@@ -33,92 +33,82 @@ const Cart = () => {
     dispatch(addToCart(cartItem));
   };
   return (
-    <main className="h-screen max-[500px]:h-[120vh]">
-      {cart.cartItems.length === 0 ? (
-        <EmptyCart />
-      ) : (
-        <section className="flex max-[950px]:flex-col max-w-6xl mx-auto mt-10 max-xl:p-8 max-[600px]:p-4">
-          <div className="w-4/6 max-[950px]:w-full">
-            <h1 className="text-gray-900 font-medium text-2xl">Cart</h1>
-            {cart.cartItems?.map((cartItem) => (
-              <div key={cartItem._id} className="mt-6 ">
-                <div className="flex">
-                  <Link href={`/items/${cartItem.slug}`}>
-                    <Image
-                      src={cartItem.image}
-                      width={150}
-                      height={150}
-                      alt={cartItem.title}
-                      className="w-40 h-32 max-[600px]:w-24 max-[600px]:h-20 max-[480px]:w-28 max-[320px]:w-24 max-[320px]:h-16"
-                    />
-                  </Link>
-                  <div className="ml-5 flex justify-between max-[320px]:flex-col w-full">
-                    <div>
-                      <h1 className="text-gray-900 font-medium max-[600px]:mr-2">
-                        {cartItem.title}
-                      </h1>
-
-                      <h2 className="text-gray-500 my-2">
-                        {cartItem.subtitle}
-                      </h2>
-                      <div className="flex">
-                        <span className="mr-2 text-gray-500">Quantity</span>
-                        <span onClick={() => handleDecreaseCart(cartItem)}>
-                          <FontAwesomeIcon
-                            icon={faMinus}
-                            className="text-gray-500"
-                          />
-                        </span>
-                        <h1 className="mx-2 text-gray-500">
-                          {cartItem.cartQuantity}
-                        </h1>
-                        <span onClick={() => handleIncreaseCart(cartItem)}>
-                          <FontAwesomeIcon
-                            icon={faPlus}
-                            className="text-gray-500"
-                          />
+    <main className="flex flex-col min-h-screen">
+      <div className="flex-grow">
+        {cart.cartItems.length === 0 ? (
+          <EmptyCart />
+        ) : (
+          <section className="flex flex-col lg:flex-row max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8 mt-10">
+            <div className="lg:w-2/3 lg:pr-8">
+              <h1 className="text-gray-900 font-semibold text-2xl mb-6">Your Cart</h1>
+              {cart.cartItems?.map((cartItem) => (
+                <div key={cartItem._id} className="mb-6 bg-white shadow-md rounded-lg p-6 transition-all duration-300 hover:shadow-lg">
+                  <div className="flex flex-col sm:flex-row items-center">
+                    <Link href={`/items/${cartItem.slug}`} className="mb-4 sm:mb-0 sm:mr-6">
+                      <Image
+                        src={cartItem.image}
+                        width={150}
+                        height={150}
+                        alt={cartItem.title}
+                        className="w-32 h-32 object-cover rounded-md"
+                      />
+                    </Link>
+                    <div className="flex-grow text-center sm:text-left">
+                      <h2 className="text-gray-900 font-semibold text-lg mb-2">{cartItem.title}</h2>
+                      <p className="text-gray-600 mb-4">{cartItem.subtitle}</p>
+                      <div className="flex items-center justify-center sm:justify-start mb-4">
+                        <span className="mr-2 text-gray-600">Quantity</span>
+                        <button onClick={() => handleDecreaseCart(cartItem)} className="p-1 hover:bg-gray-100 rounded transition-colors duration-300">
+                          <FontAwesomeIcon icon={faMinus} className="text-gray-500" />
+                        </button>
+                        <span className="mx-2 text-gray-700 font-medium">{cartItem.cartQuantity}</span>
+                        <button onClick={() => handleIncreaseCart(cartItem)} className="p-1 hover:bg-gray-100 rounded transition-colors duration-300">
+                          <FontAwesomeIcon icon={faPlus} className="text-gray-500" />
+                        </button>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <button
+                          onClick={() => handleRemoveFromCart(cartItem)}
+                          className="text-red-500 hover:text-red-700 transition-colors duration-300 mr-2 sm:mr-0"
+                        >
+                          <FontAwesomeIcon icon={faTrash} className="mr-2" />
+                          Remove
+                        </button>
+                        <span className="text-gray-900 font-semibold ml-auto">
+                          ₹{cartItem.cartQuantity * cartItem.price}
                         </span>
                       </div>
-                      <button
-                        onClick={() => handleRemoveFromCart(cartItem)}
-                        className="mt-3"
-                      >
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          className="h-5 text-gray-400"
-                        />
-                      </button>
-                    </div>
-                    <div className="max-[320px]:mt-2">
-                      <span className="text-gray-900 font-medium">
-                        MRP: &#8377; {cartItem.cartQuantity * cartItem.price}
-                      </span>
                     </div>
                   </div>
                 </div>
-                <hr className="bg-gray-300  w-full mt-7" />
-              </div>
-            ))}
-          </div>
-          <aside className=" w-2/6 max-[950px]:w-full pl-5">
-            <h1 className="text-gray-900 font-medium text-2xl">Summary</h1>
-            <div className="mt-6">
-              <div className="flex justify-between text-gray-900">
-                <span>Total Price</span>
-                <span>&#8377; {cart.cartTotalAmount}</span>
-              </div>
-              <div className="flex justify-between text-gray-900 my-2">
-                <span>Total Items Quantity</span>
-                <span>{cart.cartTotalQuantity}</span>
-              </div>
+              ))}
             </div>
-            <hr className="bg-gray-300 w-full mt-5" />
-            <button className="bg-gray-900 hover:bg-gray-500 transition-colors duration-300 ease-in-out text-gray-50 w-full rounded-3xl py-4 mt-6">
-              Go To Checkout
-            </button>
-          </aside>
-        </section>
-      )}
+            <aside className="lg:w-1/3 mt-8 lg:mt-0">
+              <div className="bg-white shadow-md rounded-lg p-6">
+                <h2 className="text-gray-900 font-semibold text-xl mb-4">Order Summary</h2>
+                <div className="space-y-2 mb-4">
+                  <div className="flex justify-between text-gray-600">
+                    <span>Total Items</span>
+                    <span>{cart.cartTotalQuantity}</span>
+                  </div>
+                  <div className="flex justify-between text-gray-600">
+                    <span>Subtotal</span>
+                    <span>₹{cart.cartTotalAmount}</span>
+                  </div>
+                </div>
+                <hr className="my-4 border-gray-200" />
+                <div className="flex justify-between text-xl font-semibold text-gray-900 mb-6">
+                  <span>Total</span>
+                  <span>₹{cart.cartTotalAmount}</span>
+                </div>
+                <button className="bg-gray-900 hover:bg-gray-700 transition-colors duration-300 text-white w-full rounded-lg py-3 font-semibold">
+                  Proceed to Checkout
+                </button>
+              </div>
+            </aside>
+          </section>
+        )}
+      </div>
     </main>
   );
 };
