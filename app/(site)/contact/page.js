@@ -89,7 +89,7 @@ const Contact = () => {
           Get in Touch
         </h2>
         <p className="mb-12 text-center text-gray-600 text-lg max-w-2xl mx-auto">
-          Have a question or want to collaborate? We'd love to hear from you. Fill out the form below, and we'll get back to you soon.
+          Have a question or want to collaborate? We&apos;d love to hear from you. Fill out the form below, and we&apos;ll get back to you soon.
         </p>
         <form className="space-y-8 bg-white shadow-xl rounded-lg p-8" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
